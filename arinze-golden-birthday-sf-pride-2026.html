@@ -9,9 +9,13 @@
     --text:#f4f0fa;
     --soft:#cfc6e0;
     --muted:#a99fc0;
-    --line:rgba(255,255,255,.14);
+    --line:rgba(255,214,130,.26);
     --glass:rgba(255,255,255,.07);
     --glass-strong:rgba(255,255,255,.11);
+    --gold:#ffd87a;
+    --gold-bright:#ffe9a8;
+    --gold-deep:#c9962b;
+    --gold-line:rgba(255,214,130,.42);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -44,37 +48,39 @@
   /* GLASS PRIMITIVE */
   .glass{
     background:var(--glass);
-    border:1px solid var(--line);
+    border:1px solid var(--gold-line);
     border-radius:22px;
     backdrop-filter:blur(18px) saturate(1.2);
     -webkit-backdrop-filter:blur(18px) saturate(1.2);
     box-shadow:
       0 12px 40px rgba(0,0,0,.35),
-      inset 0 1px 0 rgba(255,255,255,.22),
-      inset 0 -1px 0 rgba(255,255,255,.05);
+      0 0 0 1px rgba(255,214,130,.10),
+      inset 0 1px 0 rgba(255,231,170,.34),
+      inset 0 -1px 0 rgba(201,150,43,.16);
     position:relative; overflow:hidden;
     transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease;
   }
-  /* the reflective sheen (brightens on hover) */
+  /* the reflective gold sheen (brightens on hover) */
   .glass::before{
     content:""; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(135deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.05) 22%, transparent 45%);
+    background:linear-gradient(135deg, rgba(255,231,170,.28) 0%, rgba(255,216,122,.08) 22%, transparent 45%);
     transition:opacity .45s ease; opacity:1;
   }
-  /* the shimmer sweep — runs across on hover */
+  /* the gold shimmer sweep — runs across on hover */
   .glass::after{
     content:""; position:absolute; top:0; left:-75%; width:55%; height:100%; pointer-events:none;
-    background:linear-gradient(100deg, transparent 0%, rgba(255,255,255,.18) 40%, rgba(255,255,255,.45) 50%, rgba(255,255,255,.18) 60%, transparent 100%);
+    background:linear-gradient(100deg, transparent 0%, rgba(255,224,150,.22) 40%, rgba(255,238,190,.55) 50%, rgba(255,224,150,.22) 60%, transparent 100%);
     transform:skewX(-18deg); opacity:0;
   }
   .glass:hover{
     transform:translateY(-5px);
-    border-color:rgba(255,255,255,.34);
+    border-color:rgba(255,222,140,.6);
     box-shadow:
       0 24px 60px rgba(0,0,0,.5),
-      0 0 0 1px rgba(255,255,255,.06),
-      inset 0 1px 0 rgba(255,255,255,.4),
-      inset 0 -1px 0 rgba(255,255,255,.08);
+      0 0 0 1px rgba(255,214,130,.28),
+      0 0 26px rgba(255,200,90,.18),
+      inset 0 1px 0 rgba(255,238,190,.5),
+      inset 0 -1px 0 rgba(201,150,43,.2);
   }
   .glass:hover::before{opacity:.55}
   .glass:hover::after{opacity:1; animation:shimmer 1.05s cubic-bezier(.25,.6,.3,1) forwards}
@@ -114,6 +120,24 @@
   .note .hl{color:#fff;font-weight:500}
   .sig{margin-top:18px;font-size:14px;color:var(--muted);font-style:italic}
 
+  /* the "why it matters" slate, struck as a bar of gold */
+  .note.goldbar{
+    background:linear-gradient(118deg,#a9781b 0%,#e2b441 22%,#fbe6a4 50%,#e2b441 78%,#9c6c16 100%);
+    border:1px solid rgba(255,238,185,.8);
+    box-shadow:
+      0 18px 48px rgba(120,80,10,.5),
+      0 0 30px rgba(255,200,90,.22),
+      inset 0 2px 0 rgba(255,255,255,.7),
+      inset 0 -3px 8px rgba(120,80,10,.42);
+  }
+  .note.goldbar h2{color:#241901}
+  .note.goldbar p{color:#3f2e08}
+  .note.goldbar .hl{color:#1c1300;font-weight:700;background:rgba(255,255,255,.32);padding:0 5px;border-radius:5px}
+  .note.goldbar .sig{color:#5a420d;font-weight:500}
+  .note.goldbar::before{
+    background:linear-gradient(135deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.12) 20%, transparent 42%);
+  }
+
   /* EVENT CARD */
   .card{padding:24px 26px;margin-bottom:16px}
   .card .top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
@@ -133,6 +157,24 @@
   .btn:hover{background:rgba(255,255,255,.2)}
   .alt{font-size:13.5px;color:var(--muted);font-weight:300;margin:-2px 6px 20px;padding-left:2px}
   .alt b{color:var(--soft);font-weight:500}
+
+  /* DRESS CODE callout — pronounced, color-coded */
+  .dress{
+    display:inline-flex;align-items:center;gap:9px;margin:10px 0 2px;
+    font-size:13.5px;font-weight:700;letter-spacing:.04em;
+    padding:9px 16px;border-radius:999px;
+  }
+  .dress .lbl{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+  .dress.pink{
+    color:#ff8ec4;background:rgba(255,95,162,.13);border:1px solid rgba(255,95,162,.55);
+    box-shadow:0 0 22px rgba(255,95,162,.28), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .dress.pink b{color:#ffb3d8;font-weight:800}
+  .dress.gold{
+    color:#ffd87a;background:rgba(255,200,90,.13);border:1px solid rgba(255,200,90,.55);
+    box-shadow:0 0 22px rgba(255,200,90,.28), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .dress.gold b{color:var(--gold-bright);font-weight:800}
 
   /* logistics grid */
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -167,7 +209,7 @@
     </div>
   </div>
 
-  <div class="note glass">
+  <div class="note glass goldbar">
     <h2>Why this one matters to me</h2>
     <p>I was born on <span class="hl">June 28 — the very date of the first Pride march, in 1970</span> — and this year I turn 28 on the 28th: my golden birthday, landing exactly on that anniversary. I get to mark it in the city where I first saw two men kiss openly and understood what was possible for me as a gay man from Nigeria.</p>
     <p>And it's the start of my own <span class="hl">gold rush</span>, starting the next chapter of my career in the mecca of the great American gold rush. <span class="hl">I'd love you there for it.</span></p>
@@ -205,7 +247,8 @@
         <span class="tag">House royalty</span>
         <span class="tag">Optional</span>
       </div>
-      <p class="desc">For those of you up for a real night out, this is where I'll be ringing in the birthday. The marquee dance party of the weekend, led by <b>Honey Dijon</b> — a legend who carries Chicago house and ballroom history in every set. Come dance with me into midnight. No pressure if it's past your bedtime; the day party is plenty. <b>Dress code: wear pink!</b></p>
+      <p class="desc">For those of you up for a real night out, this is where I'll be ringing in the birthday. The marquee dance party of the weekend, led by <b>Honey Dijon</b> — a legend who carries Chicago house and ballroom history in every set. Come dance with me into midnight. No pressure if it's past your bedtime; the day party is plenty.</p>
+      <p class="dress pink"><span class="lbl">Dress code</span> 💗 <b>Wear pink!</b></p>
       <div class="foot">
         <span class="cost">Ticketed · buy early, it sells out</span>
         <a class="btn" href="https://dothebay.com/events/2026/6/27/pink-block-pride-2026-tickets" target="_blank" rel="noopener">Tickets &amp; info →</a>
@@ -244,7 +287,8 @@
         <span class="tag">The heart of it</span>
         <span class="tag">Free</span>
       </div>
-      <p class="desc">Straight from brunch, we'll find our spot along Market Street — closer to the Beale St. start, where it's a little less packed. This is the moment the whole weekend is built around, and it means the world to me that you'll be standing there with me for it. Wear color. Bring your joy.</p>
+      <p class="desc">Straight from brunch, we'll find our spot along Market Street — closer to the Beale St. start, where it's a little less packed. This is the moment the whole weekend is built around, and it means the world to me that you'll be standing there with me for it. Bring your joy.</p>
+      <p class="dress gold"><span class="lbl">Sunday dress code</span> ✨ <b>Something gold or mustard</b></p>
       <div class="foot">
         <span class="cost">Free · we'll grab a spot together</span>
         <a class="btn" href="https://sfpride.org/parade/" target="_blank" rel="noopener">Route &amp; details →</a>
